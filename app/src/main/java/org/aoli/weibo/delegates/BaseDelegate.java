@@ -17,9 +17,9 @@ import butterknife.Unbinder;
 public abstract class BaseDelegate extends Fragment{
     private Unbinder mUnbinder;
 
-    public abstract Object setLayout();
+    protected abstract Object setLayout();
 
-    public abstract void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView);
+    protected abstract void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView);
 
     @Nullable
     @Override

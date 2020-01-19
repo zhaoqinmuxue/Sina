@@ -14,7 +14,6 @@ import com.wang.avi.AVLoadingIndicatorView;
 
 import org.aoli.weibo.R;
 import org.aoli.weibo.application.Aoli;
-import org.aoli.weibo.application.Configurator;
 
 public abstract class UILoader extends FrameLayout {
     public enum UIStatus {

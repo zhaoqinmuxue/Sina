@@ -25,6 +25,6 @@ public class PreferencesUtil {
 
     public static void writeToken(String token){
         Aoli.writeToken(token);
-        getAppPreference().edit().putString(ConfigType.TOKEN.name(),token);
+        getAppPreference().edit().putString(ConfigType.TOKEN.name(),token).apply();
     }
 }

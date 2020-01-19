@@ -34,4 +34,9 @@ public class Configurator {
         CONFIGS.put(ConfigType.HANDLER,handler);
         return this;
     }
+
+    public Configurator withBaseUrl(String baseUrl){
+        CONFIGS.put(ConfigType.BASE_URL,baseUrl);
+        return this;
+    }
 }

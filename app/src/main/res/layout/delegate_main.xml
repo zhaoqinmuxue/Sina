@@ -8,54 +8,57 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/main_tb"
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="4dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:contentInsetStart="0dp">
-
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/main_tb"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/white"
+                android:elevation="4dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:contentInsetStart="0dp">
 
-                <ImageButton
-                    android:id="@+id/main_bt_menu"
-                    android:layout_width="28dp"
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_menu"
-                    android:layout_marginStart="10dp"/>
+                    android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/main_bt_title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_toEndOf="@id/main_bt_menu"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center_vertical|start"
-                    android:background="@color/transparent"
-                    android:text="全部微博"
-                    android:textSize="22sp"
-                    android:textColor="@color/black_light"/>
+                    <ImageButton
+                        android:id="@+id/main_bt_menu"
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentStart="true"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_menu"
+                        android:layout_marginStart="10dp"/>
 
-                <ImageButton
-                    android:id="@+id/main_bt_search"
-                    android:layout_width="28dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginEnd="10dp"
-                    android:background="@color/transparent"
-                    android:src="@drawable/ic_search"/>
-            </RelativeLayout>
-        </androidx.appcompat.widget.Toolbar>
+                    <Button
+                        android:id="@+id/main_bt_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_toEndOf="@id/main_bt_menu"
+                        android:layout_marginStart="15dp"
+                        android:gravity="center_vertical|start"
+                        android:background="@color/transparent"
+                        android:text="全部微博"
+                        android:textSize="22sp"
+                        android:textColor="@color/black_light"/>
+
+                    <ImageButton
+                        android:id="@+id/main_bt_search"
+                        android:layout_width="28dp"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_search"/>
+                </RelativeLayout>
+            </androidx.appcompat.widget.Toolbar>
+        </com.google.android.material.appbar.AppBarLayout>
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/main_vp"
@@ -72,8 +75,7 @@
             android:background="@color/white"
             app:labelVisibilityMode="unlabeled"
             app:itemIconTint="@color/selector_color"
-            app:menu="@menu/main_bot_menu"
-            app:layout_scrollFlags="scroll|enterAlways"/>
+            app:menu="@menu/main_bot_menu" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     <com.google.android.material.navigation.NavigationView

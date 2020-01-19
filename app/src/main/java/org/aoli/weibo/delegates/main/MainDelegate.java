@@ -8,6 +8,7 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -56,12 +57,12 @@ public class MainDelegate extends BaseDelegate {
     private int mCurrentPage = -1;
 
     @Override
-    public Object setLayout() {
+    protected Object setLayout() {
         return R.layout.delegate_main;
     }
 
     @Override
-    public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
+    protected void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         init();
     }
 
@@ -72,6 +73,7 @@ public class MainDelegate extends BaseDelegate {
         DELEGATES.add(new IndexDelegate());
         DELEGATES.add(new MessageDelegate());
         DELEGATES.add(new HotDelegate());
+        mViewPager.setOffscreenPageLimit(DELEGATES.size()-1);
         mViewPager.setAdapter(new MainFragmentPagerAdapter(getFragmentManager()));
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

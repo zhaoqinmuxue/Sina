@@ -1,65 +1,70 @@
 package org.aoli.weibo.delegates.main.index;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
-import org.aoli.weibo.LoginActivity;
 import org.aoli.weibo.R;
 import org.aoli.weibo.application.Aoli;
-import org.aoli.weibo.delegates.BaseDelegate;
+import org.aoli.weibo.application.ConfigType;
+import org.aoli.weibo.delegates.main.BaseLazyDelegate;
 import org.aoli.weibo.ui.UILoader;
+import org.aoli.weibo.util.net.HttpUtil;
+import org.jetbrains.annotations.NotNull;
+
+import java.io.IOException;
 
 import butterknife.BindView;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
-public class IndexDelegate extends BaseDelegate implements UILoader.OnRetryClickListener {
+public class IndexDelegate extends BaseLazyDelegate {
     @BindView(R.id.index_rv)
     RecyclerView mRecyclerView;
-
-    private UILoader mUILoader;
+    @BindView(R.id.tv)
+    TextView mTextView;
 
     @Override
-    public Object setLayout() {
-        mUILoader = new UILoader(getContext()) {
-            @Override
-            protected Object setSuccessLayout() {
-                return R.layout.delegate_index;
-            }
-        };
-        return mUILoader;
+    protected Object setSuccessLayout() {
+        return R.layout.delegate_index;
     }
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        mUILoader.setOnRetryClickListener(this);
-        mUILoader.updateStatus(UILoader.UIStatus.ERROR);
+        updateStatus(UILoader.UIStatus.ERROR);
     }
 
     @Override
-    public void onRetryClick() {
-        if (Aoli.isLoginIn()){
+    protected void onLazyLoad() {
 
-        }else{
-            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage("您的身份已失效，请重新登录")
-                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getActivity(), LoginActivity.class);
-                            intent.putExtra(LoginActivity.DIRECTLOGIN,true);
-                            startActivity(intent);
-                        }
-                    })
-                    .setNegativeButton("取消",null)
-                    .setCancelable(false)
-                    .show();
-        }
+    }
+
+    @Override
+    public void onRefresh() {
+        HttpUtil.doGet(Aoli.getConfiguration(ConfigType.BASE_URL) + "statuses/home_timeline.json" + "?access_token=" + Aoli.getToken(),
+                new Callback() {
+                    @Override
+                    public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                        final String result = response.body().string();
+                        Aoli.getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                updateStatus(UILoader.UIStatus.SUCCESS);
+                                mTextView.setText(result);
+                            }
+                        });
+                    }
+                });
     }
 }

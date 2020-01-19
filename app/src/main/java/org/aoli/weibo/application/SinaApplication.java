@@ -15,6 +15,7 @@ public class SinaApplication extends Application {
         WbSdk.install(this,new AuthInfo(this,Configurator.APP_KEY_SINA,Configurator.REDIRECT_URL,Configurator.SCOPE));
         Aoli.init(this)
                 .withHandler(new Handler())
-                .withToken(PreferencesUtil.getToken());
+                .withToken(PreferencesUtil.getToken())
+                .withBaseUrl("https://api.weibo.com/2/");
     }
 }

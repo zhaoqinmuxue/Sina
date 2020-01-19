@@ -43,16 +43,19 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
             PreferencesUtil.writeToken(oauth2AccessToken.getToken());
+            setResult(1);
         }
 
         @Override
         public void cancel() {
             Toast.makeText(LoginActivity.this,"取消登录",Toast.LENGTH_SHORT).show();
+            setResult(2);
         }
 
         @Override
         public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
             Toast.makeText(LoginActivity.this,wbConnectErrorMessage.getErrorMessage(),Toast.LENGTH_SHORT).show();
+            setResult(3);
         }
     }
 }
