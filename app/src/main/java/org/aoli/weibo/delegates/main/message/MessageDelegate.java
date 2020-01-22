@@ -26,9 +26,4 @@ public class MessageDelegate extends BaseLazyDelegate {
     protected void onLazyLoad() {
 
     }
-
-    @Override
-    public void onRefresh() {
-
-    }
 }

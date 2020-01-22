@@ -4,13 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.FrameLayout;
 
 import androidx.annotation.AttrRes;
 import androidx.annotation.Nullable;
-
-import com.wang.avi.AVLoadingIndicatorView;
 
 import org.aoli.weibo.R;
 import org.aoli.weibo.application.Aoli;
@@ -62,10 +59,8 @@ public abstract class UILoader extends FrameLayout {
         }
         if (mCurrentStatus == UIStatus.LOADING){
             mLoadingView.setVisibility(VISIBLE);
-            ((AVLoadingIndicatorView)mLoadingView.findViewById(R.id.avi)).show();
         }else{
             mLoadingView.setVisibility(GONE);
-            ((AVLoadingIndicatorView)mLoadingView.findViewById(R.id.avi)).hide();
         }
         if (mSuccessView == null){
             mSuccessView = getSuccessView();

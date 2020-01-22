@@ -21,16 +21,11 @@ public class HotDelegate extends BaseLazyDelegate {
 
     @Override
     public void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
-        updateStatus(UILoader.UIStatus.ERROR);
+        updateStatus(UILoader.UIStatus.LOADING);
     }
 
     @Override
     protected void onLazyLoad() {
-
-    }
-
-    @Override
-    public void onRefresh() {
 
     }
 }
