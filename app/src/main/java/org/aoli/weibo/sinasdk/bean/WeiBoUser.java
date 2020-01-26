@@ -1,6 +1,8 @@
 package org.aoli.weibo.sinasdk.bean;
 
-public class WeiBoUser {
+import java.io.Serializable;
+
+public class WeiBoUser implements Serializable {
     private long id;//用户UID
     private String screen_name;//用户昵称
     private int province;//省份id

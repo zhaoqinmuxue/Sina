@@ -1,7 +1,9 @@
 package org.aoli.weibo.sinasdk.bean;
 
+import java.io.Serializable;
+
 //一条微博
-public class StatusContent {
+public class StatusContent implements Serializable {
     private String created_at;//发布时间
     private long id;//微博id
     private String text;//微博内容

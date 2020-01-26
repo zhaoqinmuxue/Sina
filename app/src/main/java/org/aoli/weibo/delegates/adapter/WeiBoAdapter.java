@@ -1,6 +1,8 @@
-package org.aoli.weibo.delegates.main.index;
+package org.aoli.weibo.delegates.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 
+import org.aoli.weibo.BaseActivity;
 import org.aoli.weibo.R;
+import org.aoli.weibo.delegates.user.UserDelegate;
 import org.aoli.weibo.sinasdk.bean.PicUrl;
 import org.aoli.weibo.sinasdk.bean.StatusContent;
 import org.aoli.weibo.sinasdk.bean.WeiBoUser;
 import org.aoli.weibo.ui.ninegridimageview.NineGridImageView;
 import org.aoli.weibo.ui.ninegridimageview.NineGridImageViewAdapter;
+import org.aoli.weibo.util.RichTextUtil;
 
 import java.util.Arrays;
 import java.util.List;
@@ -27,11 +32,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHolder> {
     private List<StatusContent> contents;
-    private Context mContext;
+    private BaseActivity mContext;
 
     public WeiBoAdapter(Context context){
         super();
-        mContext = context;
+        mContext = (BaseActivity) context;
     }
 
     @NonNull
@@ -50,6 +55,20 @@ public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHol
         final StatusContent repostContent = content.getRetweeted_status();
         Glide.with(mContext).load(user.getAvatar_large()).into(holder.profileImage);
         holder.screenName.setText(user.getScreen_name());
+        View.OnClickListener listener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                UserDelegate userDelegate = new UserDelegate();
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("user",user);
+                userDelegate.setArguments(bundle);
+                mContext.getSupportFragmentManager().beginTransaction()
+                        .add(R.id.delegate_container,userDelegate)
+                        .commit();
+            }
+        };
+        holder.profileImage.setOnClickListener(listener);
+        holder.screenName.setOnClickListener(listener);
         holder.timeAndSource.setText(content.getCreated_at());
         holder.text.setText(RichTextUtil.toRichText(content.getText()));
         holder.images.setAdapter(mNineGridImageViewAdapter);

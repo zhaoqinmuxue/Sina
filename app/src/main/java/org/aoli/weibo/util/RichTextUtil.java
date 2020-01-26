@@ -1,4 +1,4 @@
-package org.aoli.weibo.delegates.main.index;
+package org.aoli.weibo.util;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
@@ -50,7 +50,7 @@ public class RichTextUtil {
             if (text.charAt(i) == '@'){
                 indexes.add(i);
                 for (int j = i+1;j < text.length();j++){
-                    if (text.charAt(j)==' ' || text.charAt(j)==':'){
+                    if (text.charAt(j)==' ' || text.charAt(j)==':' || text.charAt(j)== '，' || text.charAt(j)== ','){
                         indexes.add(j);
                         i = j;
                         break;

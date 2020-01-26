@@ -1,7 +1,9 @@
 package org.aoli.weibo.sinasdk.bean;
 
+import java.io.Serializable;
+
 //位置信息
-public class Geo {
+public class Geo implements Serializable {
     private String longitude;// 经度坐标
     private String latitude;// 维度坐标
     private String city;// 所在城市的城市代码

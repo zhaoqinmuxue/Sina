@@ -1,8 +1,9 @@
 package org.aoli.weibo.sinasdk.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class StatusContents {
+public class StatusContents implements Serializable {
     private List<StatusContent> statuses;
 
     private int total_number;

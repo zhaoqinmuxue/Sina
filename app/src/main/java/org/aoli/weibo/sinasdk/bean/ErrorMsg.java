@@ -1,6 +1,8 @@
 package org.aoli.weibo.sinasdk.bean;
 
-public class ErrorMsg {
+import java.io.Serializable;
+
+public class ErrorMsg implements Serializable {
     private String error;
     private String error_code;
     private String request;

@@ -5,7 +5,7 @@ import org.aoli.weibo.sinasdk.bean.StatusContent;
 
 import java.util.List;
 
-public interface IHomeTimeLineViewCallback {
+public interface ITimeLineViewCallback {
     void onLoaded(List<StatusContent> statuses);
 
     void onRefresh(List<StatusContent> statuses);

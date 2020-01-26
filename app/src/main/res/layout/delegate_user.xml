@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:id="@+id/layout"
+    android:fitsSystemWindows="true">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:fitsSystemWindows="true"
+            app:statusBarScrim="@color/white">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_collapseMode="parallax"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/img_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/cover"
+                    android:scaleType="centerCrop" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/img_background"
+                    android:padding="10dp"
+                    android:orientation="vertical">
+
+                    <ToggleButton
+                        android:id="@+id/bt_attention"
+                        android:layout_width="76dp"
+                        android:layout_height="34dp"
+                        android:layout_gravity="end"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/pill"
+                        android:textColor="@color/white"
+                        android:textOff="关注"
+                        android:textOn="已关注"
+                        />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:text="甜言蜜语的情话" />
+
+                    <TextView
+                        android:id="@+id/tv_describe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:layout_marginBottom="6dp"
+                        android:textColor="@color/black_light"
+                        android:text="情话大全，浪漫情话，经典语录，人生感悟，爱情语录，情感语句，哄女孩子开心的话，泡妞必说的话，泡妞秘籍，情感话题，情感语录大全，心情随笔。"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="关注 "/>
+                        <TextView
+                            android:id="@+id/tv_guanzhu"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:text="2507"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:text=" | "/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="粉丝 "/>
+                        <TextView
+                            android:id="@+id/tv_fans"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:text="27.8万"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </RelativeLayout>
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/content_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"/>
+
+    <LinearLayout
+        android:id="@+id/tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginTop="36dp"
+        android:background="@color/white"
+        android:visibility="gone"
+        android:elevation="2dp">
+        <TextView
+            android:id="@+id/tb_name"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="甜言蜜语的情话"
+            android:layout_marginStart="60dp"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:gravity="center_vertical"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fra_head"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/img_background"
+        android:layout_marginTop="115dp"
+        android:layout_marginStart="10dp"
+        android:padding="3dp"
+        android:background="@drawable/circle">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_head"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/head" />
+    </FrameLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,7 +1,9 @@
 package org.aoli.weibo.sinasdk.bean;
 
+import java.io.Serializable;
+
 //多图时的多图链接
-public class PicUrl {
+public class PicUrl implements Serializable {
     private String thumbnail_pic;
 
     private String bmiddle_pic;

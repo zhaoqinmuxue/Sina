@@ -14,26 +14,27 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import org.aoli.weibo.R;
 import org.aoli.weibo.application.Aoli;
+import org.aoli.weibo.delegates.adapter.WeiBoAdapter;
 import org.aoli.weibo.delegates.main.BaseLazyDelegate;
 import org.aoli.weibo.sinasdk.ErrorMsgUtil;
 import org.aoli.weibo.sinasdk.bean.ErrorMsg;
 import org.aoli.weibo.sinasdk.bean.StatusContent;
 import org.aoli.weibo.sinasdk.http.HomeTimeLinePresenter;
-import org.aoli.weibo.sinasdk.interfaces.IHomeTimeLinePresenter;
-import org.aoli.weibo.sinasdk.interfaces.IHomeTimeLineViewCallback;
+import org.aoli.weibo.sinasdk.interfaces.ITimeLinePresenter;
+import org.aoli.weibo.sinasdk.interfaces.ITimeLineViewCallback;
 import org.aoli.weibo.ui.UILoader;
 import org.aoli.weibo.util.PixelUtil;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class IndexDelegate extends BaseLazyDelegate implements IHomeTimeLineViewCallback {
+public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCallback {
     @BindView(R.id.index_rv)
     RecyclerView mRecyclerView;
     @BindView(R.id.index_sr)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    IHomeTimeLinePresenter mHomeTimeLinePresenter;
+    ITimeLinePresenter mHomeTimeLinePresenter;
 
     WeiBoAdapter mWeiBoAdapter;
 
