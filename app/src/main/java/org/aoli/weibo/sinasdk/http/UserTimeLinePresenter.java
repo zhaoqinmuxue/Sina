@@ -60,7 +60,9 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         e.printStackTrace();
-                        callback.onFailure();
+                        if (callback != null) {
+                            callback.onFailure();
+                        }
                     }
 
                     @Override
@@ -71,7 +73,9 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
                             Aoli.getHandler().post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    callback.onError(errorMsg);
+                                    if (callback != null) {
+                                        callback.onError(errorMsg);
+                                    }
                                 }
                             });
                         }else{
@@ -81,13 +85,19 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
                                 public void run() {
                                     switch (type){
                                         case LOAD:
-                                            callback.onLoaded(statusContents.getStatuses());
+                                            if (callback != null) {
+                                                callback.onLoaded(statusContents.getStatuses());
+                                            }
                                             break;
                                         case REFRESH:
-                                            callback.onRefresh(statusContents.getStatuses());
+                                            if (callback != null) {
+                                                callback.onRefresh(statusContents.getStatuses());
+                                            }
                                             break;
                                         case LOADMORE:
-                                            callback.onLoadMore(statusContents.getStatuses());
+                                            if (callback != null) {
+                                                callback.onLoadMore(statusContents.getStatuses());
+                                            }
                                     }
                                 }
                             });

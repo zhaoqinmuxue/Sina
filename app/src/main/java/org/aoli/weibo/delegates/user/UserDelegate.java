@@ -2,19 +2,18 @@ package org.aoli.weibo.delegates.user;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.provider.Contacts;
-import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -47,15 +46,17 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
     @BindView(R.id.fra_head)
     FrameLayout mFrameLayout;
     @BindView(R.id.tool_bar)
-    LinearLayout mToolbar;
+    FrameLayout mToolbar;
+    @BindView(R.id.layout)
+    CoordinatorLayout mCoordinatorLayout;
 
-    UILoader mUILoader;
-    RecyclerView mRecyclerView;
-    SwipeRefreshLayout mSwipeRefreshLayout;
+    private UILoader mUILoader;
+    private RecyclerView mRecyclerView;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
     @BindView(R.id.content_view)
     FrameLayout mContentView;
     @BindView(R.id.tb_name)
-    TextView mTb_name;
+    Toolbar mTb_name;
     @BindView(R.id.img_head)
     ImageView mImg_head;
     @BindView(R.id.img_background)
@@ -92,20 +93,20 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
     @Override
     protected void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         mAppBarLayout.addOnOffsetChangedListener(listener);
-        getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
         initRecyclerView();
         initData();
+        getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
     private void initData(){
         WeiBoUser user = (WeiBoUser) getArguments().getSerializable("user");
-        mTb_name.setText(user.getScreen_name());
+        mTb_name.setTitle(user.getScreen_name());
         mTv_name.setText(user.getScreen_name());
         mTv_describe.setText(user.getDescription());
         mTv_guanzhu.setText(String.valueOf(user.getFriends_count()));
         mTv_fans.setText(String.valueOf(user.getFollowers_count()));
         Glide.with(this).load(user.getCover_image_phone()).into(mImg_background);
-        Glide.with(this).load(user.getAvatar_large()).into(mImg_head);
+        Glide.with(this).load(user.getAvatar_hd()).into(mImg_head);
         mUserTimeLinePresenter = new UserTimeLinePresenter(user.getId());
         mUserTimeLinePresenter.registerViewCallback(this);
         mUILoader.updateStatus(UILoader.UIStatus.LOADING);
@@ -142,22 +143,22 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
     public void onDestroyView() {
         mAppBarLayout.removeOnOffsetChangedListener(listener);
         mUserTimeLinePresenter.unRegisterViewCallback(this);
+        getActivity().getWindow().setStatusBarColor(Color.WHITE);
         super.onDestroyView();
     }
 
     private AppBarLayout.OnOffsetChangedListener listener = new AppBarLayout.OnOffsetChangedListener() {
         @Override
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+            View view = getActivity().findViewById(R.id.delegate_container);
             float factor = ((float) Math.abs(verticalOffset))/(appBarLayout.getTotalScrollRange() - actionBarSize);
             if (factor >= 1.0f){
-                mFrameLayout.setElevation(PixelUtil.toPixel(2));
+                mFrameLayout.setElevation(mToolbar.getElevation());
                 mToolbar.setVisibility(View.VISIBLE);
-                getActivity().getWindow().setStatusBarColor(Color.WHITE);
                 factor = 1.0f;
             }else {
                 mFrameLayout.setElevation(PixelUtil.toPixel(0));
                 mToolbar.setVisibility(View.GONE);
-                getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
             }
             float offset = (1.0f-ScaleXY)*factor*size/2;
             mFrameLayout.setTranslationX(factor * TranX - offset);

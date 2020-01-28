@@ -1,5 +1,6 @@
 package org.aoli.weibo.delegates.main;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -8,7 +9,6 @@ import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -64,6 +64,12 @@ public class MainDelegate extends BaseDelegate {
     @Override
     protected void onBindView(@Nullable Bundle savedInstanceState, @NonNull View rootView) {
         init();
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().getWindow().setStatusBarColor(Color.WHITE);
     }
 
     private void init(){
