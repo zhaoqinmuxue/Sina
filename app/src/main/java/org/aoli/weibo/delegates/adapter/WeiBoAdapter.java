@@ -1,6 +1,5 @@
 package org.aoli.weibo.delegates.adapter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,8 +42,7 @@ public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHol
     @Override
     public WeiBoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_weibo,parent,false);
-        final WeiBoViewHolder viewHolder = new WeiBoViewHolder(view);
-        return viewHolder;
+        return new WeiBoViewHolder(view);
     }
 
     @Override

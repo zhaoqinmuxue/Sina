@@ -123,7 +123,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_name"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="56dp"
             app:contentInsetStart="60dp"
             app:title="甜言蜜语的情话"/>
     </FrameLayout>

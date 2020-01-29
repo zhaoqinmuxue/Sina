@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 
 import org.aoli.weibo.application.Aoli;
 import org.aoli.weibo.application.ConfigType;
+import org.aoli.weibo.sinasdk.action.Actions;
 import org.aoli.weibo.sinasdk.bean.ErrorMsg;
 import org.aoli.weibo.sinasdk.bean.StatusContents;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLinePresenter;
@@ -29,7 +30,7 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
 
     private int page = 1;
 
-    ITimeLineViewCallback callback;
+    private ITimeLineViewCallback callback;
 
     public UserTimeLinePresenter(long uid){
         this.uid = uid;
@@ -54,7 +55,7 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
     }
 
     private void getStatusContents(Type type){
-        HttpUtil.doGet(Aoli.getConfiguration(ConfigType.BASE_URL) + "statuses/home_timeline.json" + "?access_token=" + Aoli.getToken()
+        HttpUtil.doGet(Aoli.getConfiguration(ConfigType.BASE_URL) + Actions.statusesHomeTimeLine + "?access_token=" + Aoli.getToken()
                         + "&&uid=" + uid + "&&count=" + count + "&&page=" + page,
                 new Callback() {
                     @Override

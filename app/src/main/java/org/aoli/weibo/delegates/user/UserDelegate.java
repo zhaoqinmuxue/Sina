@@ -2,9 +2,7 @@ package org.aoli.weibo.delegates.user;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,7 +79,7 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
     private int targetSize = PixelUtil.toPixel(38);
     private int actionBarSize = PixelUtil.toPixel(56);
 
-    private int TranY = (toolBarSize-targetSize)/2 - marginTop + PixelUtil.toPixel(36);
+    private int TranY = (toolBarSize-targetSize)/2 - marginTop + PixelUtil.getStatusBarHeight();
     private int TranX = PixelUtil.toPixel(10) - marginStart;
     private float ScaleXY = ((float)targetSize)/size;
 

@@ -5,7 +5,7 @@ import android.os.Handler;
 
 import java.util.HashMap;
 
-public class Aoli {
+public final class Aoli {
     public static Configurator init(Context context){
         getConfigurations().put(ConfigType.APPLICATION_CONTEXT,context.getApplicationContext());
         return Configurator.getInstance();
@@ -38,7 +38,6 @@ public class Aoli {
     public static Context getApplicationContext(){
         return getConfiguration(ConfigType.APPLICATION_CONTEXT);
     }
-
 
     public static <T> T getConfiguration(ConfigType type){
         return (T)getConfigurations().get(type);

@@ -4,7 +4,7 @@ import android.os.Handler;
 
 import java.util.HashMap;
 
-public class Configurator {
+public final class Configurator {
     private final HashMap<ConfigType,Object> CONFIGS = new HashMap<>();
     public static final String APP_KEY_SINA = "469501326";
     public static final String REDIRECT_URL = "https://api.weibo.com/oauth2/default.html";
@@ -16,7 +16,7 @@ public class Configurator {
         return Holder.INSTANCE;
     }
 
-    final HashMap getConfigs(){
+    final HashMap<ConfigType,Object> getConfigs(){
         return CONFIGS;
     }
 

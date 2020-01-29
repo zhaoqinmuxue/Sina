@@ -4,7 +4,6 @@ import android.view.KeyEvent;
 import android.view.View;
 
 public abstract class BaseBackDelegate extends BaseDelegate implements View.OnKeyListener{
-    private boolean isLazyLoad = true;
 
     @Override
     public void onResume() {

@@ -34,9 +34,9 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
     @BindView(R.id.index_sr)
     SwipeRefreshLayout mSwipeRefreshLayout;
 
-    ITimeLinePresenter mHomeTimeLinePresenter;
+    private ITimeLinePresenter mHomeTimeLinePresenter;
 
-    WeiBoAdapter mWeiBoAdapter;
+    private WeiBoAdapter mWeiBoAdapter;
 
     @Override
     protected Object setSuccessLayout() {
