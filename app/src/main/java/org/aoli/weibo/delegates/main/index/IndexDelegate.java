@@ -50,6 +50,7 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
         mWeiBoAdapter = new WeiBoAdapter(getContext());
         mRecyclerView.setAdapter(mWeiBoAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
+        mRecyclerView.addOnScrollListener(onScrollListener);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
         mSwipeRefreshLayout.setProgressViewOffset(true, PixelUtil.toPixel(-20),PixelUtil.toPixel(40));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -61,6 +62,19 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
         mHomeTimeLinePresenter = HomeTimeLinePresenter.getInstance();
         mHomeTimeLinePresenter.registerViewCallback(this);
     }
+
+    private boolean isLoading = false;
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            if (!isLoading && layoutManager.getItemCount() == (layoutManager.findLastVisibleItemPosition() + 1)){
+                isLoading = true;
+                mHomeTimeLinePresenter.loadMore();
+            }
+        }
+    };
 
     @Override
     protected void onLazyLoad() {
@@ -76,7 +90,7 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
     public void onDestroyView() {
         super.onDestroyView();
         mHomeTimeLinePresenter.unRegisterViewCallback(this);
-        mHomeTimeLinePresenter = null;
+        mRecyclerView.removeOnScrollListener(onScrollListener);
     }
 
     @Override
@@ -94,6 +108,7 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
     @Override
     public void onLoadMore(List<StatusContent> statuses) {
         mWeiBoAdapter.addData(statuses);
+        isLoading = false;
     }
 
     @Override

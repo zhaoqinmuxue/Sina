@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -29,9 +30,12 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHolder> {
+public class WeiBoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<StatusContent> contents;
     private BaseActivity mContext;
+
+    private static final int TYPE_NORMAL = 1;
+    private static final int TYPE_FOOTER = 2;
 
     public WeiBoAdapter(Context context){
         super();
@@ -40,58 +44,75 @@ public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHol
 
     @NonNull
     @Override
-    public WeiBoViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_weibo,parent,false);
-        return new WeiBoViewHolder(view);
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType == TYPE_NORMAL) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_weibo, parent, false);
+            return new WeiBoViewHolder(view);
+        }else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_footer, parent, false);
+            return new FooterViewHolder(view);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull WeiBoViewHolder holder, int position) {
-        final StatusContent content = contents.get(position);
-        final WeiBoUser user = content.getUser();
-        final PicUrl[] picUrls = content.getPic_urls();
-        final StatusContent repostContent = content.getRetweeted_status();
-        Glide.with(mContext).load(user.getAvatar_large()).into(holder.profileImage);
-        holder.screenName.setText(user.getScreen_name());
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                UserDelegate userDelegate = new UserDelegate();
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("user",user);
-                userDelegate.setArguments(bundle);
-                mContext.getSupportFragmentManager().beginTransaction()
-                        .add(R.id.delegate_container,userDelegate)
-                        .commit();
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof WeiBoViewHolder) {
+            WeiBoViewHolder weiBoViewHolder = (WeiBoViewHolder) holder;
+            final StatusContent content = contents.get(position);
+            final WeiBoUser user = content.getUser();
+            final PicUrl[] picUrls = content.getPic_urls();
+            final StatusContent repostContent = content.getRetweeted_status();
+            Glide.with(mContext).load(user.getAvatar_large()).into(weiBoViewHolder.profileImage);
+            weiBoViewHolder.screenName.setText(user.getScreen_name());
+            View.OnClickListener listener = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    UserDelegate userDelegate = new UserDelegate();
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("user", user);
+                    userDelegate.setArguments(bundle);
+                    mContext.getSupportFragmentManager().beginTransaction()
+                            .add(R.id.delegate_container, userDelegate)
+                            .commit();
+                }
+            };
+            weiBoViewHolder.profileImage.setOnClickListener(listener);
+            weiBoViewHolder.screenName.setOnClickListener(listener);
+            weiBoViewHolder.timeAndSource.setText(content.getCreated_at());
+            weiBoViewHolder.text.setText(RichTextUtil.toRichText(content.getText()));
+            weiBoViewHolder.images.setAdapter(mNineGridImageViewAdapter);
+            weiBoViewHolder.images.setImagesData(Arrays.asList(picUrls));
+            if (repostContent != null) {
+                weiBoViewHolder.repostStatus.setVisibility(View.VISIBLE);
+                String temp = "@" + repostContent.getUser().getScreen_name() + ":" + repostContent.getText();
+                weiBoViewHolder.repostText.setText(RichTextUtil.toRichText(temp));
+                weiBoViewHolder.repostMsg.setText("转发" + repostContent.getReposts_count() + " | 评论" + repostContent.getComments_count() + " | 点赞" + repostContent.getAttitudes_count());
+                weiBoViewHolder.respostImages.setAdapter(mNineGridImageViewAdapter);
+                weiBoViewHolder.respostImages.setImagesData(Arrays.asList(repostContent.getPic_urls()));
+            } else {
+                weiBoViewHolder.repostStatus.setVisibility(View.GONE);
             }
-        };
-        holder.profileImage.setOnClickListener(listener);
-        holder.screenName.setOnClickListener(listener);
-        holder.timeAndSource.setText(content.getCreated_at());
-        holder.text.setText(RichTextUtil.toRichText(content.getText()));
-        holder.images.setAdapter(mNineGridImageViewAdapter);
-        holder.images.setImagesData(Arrays.asList(picUrls));
-        if (repostContent != null){
-            holder.repostStatus.setVisibility(View.VISIBLE);
-            String temp = "@" + repostContent.getUser().getScreen_name() + ":" + repostContent.getText();
-            holder.repostText.setText(RichTextUtil.toRichText(temp));
-            holder.repostMsg.setText("转发" + repostContent.getReposts_count() + " | 评论" + repostContent.getComments_count() + " | 点赞" + repostContent.getAttitudes_count());
-            holder.respostImages.setAdapter(mNineGridImageViewAdapter);
-            holder.respostImages.setImagesData(Arrays.asList(repostContent.getPic_urls()));
-        }else {
-            holder.repostStatus.setVisibility(View.GONE);
+            weiBoViewHolder.repostCount.setText(String.valueOf(content.getReposts_count()));
+            weiBoViewHolder.commentCount.setText(String.valueOf(content.getComments_count()));
+            weiBoViewHolder.attitudeCount.setText(String.valueOf(content.getAttitudes_count()));
         }
-        holder.repostCount.setText(String.valueOf(content.getReposts_count()));
-        holder.commentCount.setText(String.valueOf(content.getComments_count()));
-        holder.attitudeCount.setText(String.valueOf(content.getAttitudes_count()));
     }
 
     @Override
     public int getItemCount() {
-        if (contents != null)
-            return contents.size();
+        if (contents != null && contents.size() != 0)
+            return contents.size() + 1;
         else
             return 0;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position == contents.size()){
+            return TYPE_FOOTER;
+        }else {
+            return TYPE_NORMAL;
+        }
     }
 
     public void setData(List<StatusContent> contents){
@@ -118,7 +139,7 @@ public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHol
         }
     };
 
-    static class WeiBoViewHolder extends RecyclerView.ViewHolder{
+    class WeiBoViewHolder extends RecyclerView.ViewHolder{
         CircleImageView profileImage;
         TextView screenName;
         TextView timeAndSource;
@@ -154,6 +175,13 @@ public class WeiBoAdapter extends RecyclerView.Adapter<WeiBoAdapter.WeiBoViewHol
             attitudeIcon = itemView.findViewById(R.id.attitude_icon);
             attitudeCount = itemView.findViewById(R.id.attitudes_count);
             moreFunction = itemView.findViewById(R.id.more_function);
+        }
+    }
+
+    class FooterViewHolder extends RecyclerView.ViewHolder{
+
+        private FooterViewHolder(@NonNull View view){
+            super(view);
         }
     }
 }

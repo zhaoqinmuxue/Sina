@@ -167,6 +167,19 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
         }
     };
 
+    private boolean isLoading = false;
+    private RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+            super.onScrolled(recyclerView, dx, dy);
+            LinearLayoutManager layoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+            if (!isLoading && layoutManager.getItemCount() == (layoutManager.findLastVisibleItemPosition() + 1)){
+                isLoading = true;
+                mUserTimeLinePresenter.loadMore();
+            }
+        }
+    };
+
     @Override
     public void onLoaded(List<StatusContent> statuses) {
         mUILoader.updateStatus(UILoader.UIStatus.SUCCESS);
@@ -180,7 +193,8 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
 
     @Override
     public void onLoadMore(List<StatusContent> statuses) {
-
+        mWeiBoAdapter.addData(statuses);
+        isLoading = false;
     }
 
     @Override
