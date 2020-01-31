@@ -6,79 +6,83 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         android:fitsSystemWindows="true">
-
-        <com.google.android.material.appbar.AppBarLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/main_tb"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="@color/white"
-                android:elevation="2dp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:contentInsetStart="0dp">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
-                <RelativeLayout
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/main_tb"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="?attr/actionBarSize"
+                    app:layout_scrollFlags="scroll|enterAlways">
 
-                    <ImageButton
-                        android:id="@+id/main_bt_menu"
-                        android:layout_width="28dp"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:background="@color/transparent"
-                        android:src="@drawable/ic_menu"
-                        android:layout_marginStart="10dp"/>
+                        android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/main_bt_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_toEndOf="@id/main_bt_menu"
-                        android:layout_marginStart="15dp"
-                        android:gravity="center_vertical|start"
-                        android:background="@color/transparent"
-                        android:text="全部微博"
-                        android:textSize="22sp"
-                        android:textColor="@color/black_light"/>
+                        <ImageButton
+                            android:id="@+id/main_bt_menu"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_menu"
+                            android:layout_marginStart="10dp"/>
 
-                    <ImageButton
-                        android:id="@+id/main_bt_search"
-                        android:layout_width="28dp"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginEnd="10dp"
-                        android:background="@color/transparent"
-                        android:src="@drawable/ic_search"/>
-                </RelativeLayout>
-            </androidx.appcompat.widget.Toolbar>
-        </com.google.android.material.appbar.AppBarLayout>
+                        <Button
+                            android:id="@+id/main_bt_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_toEndOf="@id/main_bt_menu"
+                            android:layout_marginStart="15dp"
+                            android:gravity="center_vertical|start"
+                            android:background="@color/transparent"
+                            android:text="全部微博"
+                            android:textSize="22sp"
+                            android:textColor="@color/black_light"/>
 
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/main_vp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingBottom="46dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            />
+                        <ImageButton
+                            android:id="@+id/main_bt_search"
+                            android:layout_width="28dp"
+                            android:layout_height="match_parent"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginEnd="10dp"
+                            android:background="@color/transparent"
+                            android:src="@drawable/ic_search"/>
+                    </RelativeLayout>
+                </androidx.appcompat.widget.Toolbar>
+            </com.google.android.material.appbar.AppBarLayout>
 
-        <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:id="@+id/main_bot"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_gravity="bottom"
-            android:background="@color/white"
-            app:labelVisibilityMode="unlabeled"
-            app:itemIconTint="@color/selector_color"
-            app:menu="@menu/main_bot_menu" />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/main_vp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingBottom="46dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                />
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/main_bot"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_gravity="bottom"
+                android:background="@color/white"
+                app:labelVisibilityMode="unlabeled"
+                app:itemIconTint="@color/selector_color"
+                app:menu="@menu/main_bot_menu" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </FrameLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav"

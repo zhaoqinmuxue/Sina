@@ -69,7 +69,6 @@ public class MainDelegate extends BaseDelegate {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().getWindow().setStatusBarColor(Color.WHITE);
     }
 
     private void init(){

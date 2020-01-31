@@ -88,9 +88,9 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
 
     @Override
     public void onDestroyView() {
-        super.onDestroyView();
-        mHomeTimeLinePresenter.unRegisterViewCallback(this);
         mRecyclerView.removeOnScrollListener(onScrollListener);
+        mHomeTimeLinePresenter.unRegisterViewCallback(this);
+        super.onDestroyView();
     }
 
     @Override

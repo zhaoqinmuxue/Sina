@@ -15,6 +15,7 @@ import org.aoli.weibo.util.net.HttpUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class HomeTimeLinePresenter implements ITimeLinePresenter, IHomeTimeLineH
 
     private int page = 1;
 
-    List<ITimeLineViewCallback> callbacks = new ArrayList<>();
+    private List<ITimeLineViewCallback> callbacks = new ArrayList<>();
 
     private HomeTimeLinePresenter(){}
 
@@ -68,35 +69,49 @@ public class HomeTimeLinePresenter implements ITimeLinePresenter, IHomeTimeLineH
                     @Override
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         e.printStackTrace();
-                        handleFailure();
+                        Aoli.getHandler().post(new Runnable() {
+                            @Override
+                            public void run() {
+                                handleFailure();
+                            }
+                        });
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        final String result = response.body().string();
-                        ErrorMsg errorMsg = JSON.parseObject(result,ErrorMsg.class);
-                        if (errorMsg != null && errorMsg.getError_code() != null){
-                            Aoli.getHandler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    handleError(errorMsg);
-                                }
-                            });
-                        }else{
-                            StatusContents statusContents = JSON.parseObject(result,StatusContents.class);
-                            Aoli.getHandler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    switch (type){
-                                        case LOAD:
-                                            handleLoaded(statusContents.getStatuses());
-                                            break;
-                                        case REFRESH:
-                                            handleRefresh(statusContents.getStatuses());
-                                            break;
-                                        case LOADMORE:
-                                            handleLoadMore(statusContents.getStatuses());
+                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                            final String result = response.body().string();
+                            ErrorMsg errorMsg = JSON.parseObject(result, ErrorMsg.class);
+                            if (errorMsg != null && errorMsg.getError_code() != null) {
+                                Aoli.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        handleError(errorMsg);
                                     }
+                                });
+                            } else {
+                                StatusContents statusContents = JSON.parseObject(result, StatusContents.class);
+                                Aoli.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        switch (type) {
+                                            case LOAD:
+                                                handleLoaded(statusContents.getStatuses());
+                                                break;
+                                            case REFRESH:
+                                                handleRefresh(statusContents.getStatuses());
+                                                break;
+                                            case LOADMORE:
+                                                handleLoadMore(statusContents.getStatuses());
+                                        }
+                                    }
+                                });
+                            }
+                        }else {
+                            Aoli.getHandler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    handleFailure();
                                 }
                             });
                         }

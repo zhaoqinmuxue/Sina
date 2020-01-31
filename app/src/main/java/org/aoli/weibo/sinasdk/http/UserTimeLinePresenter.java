@@ -1,5 +1,8 @@
 package org.aoli.weibo.sinasdk.http;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.alibaba.fastjson.JSON;
 
 import org.aoli.weibo.application.Aoli;
@@ -13,6 +16,8 @@ import org.aoli.weibo.util.net.HttpUtil;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.net.HttpURLConnection;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -30,7 +35,7 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
 
     private int page = 1;
 
-    private ITimeLineViewCallback callback;
+    private WeakReference<ITimeLineViewCallback> callback;
 
     public UserTimeLinePresenter(long uid){
         this.uid = uid;
@@ -62,54 +67,69 @@ public class UserTimeLinePresenter implements ITimeLinePresenter {
                     public void onFailure(@NotNull Call call, @NotNull IOException e) {
                         e.printStackTrace();
                         if (callback != null) {
-                            callback.onFailure();
+                            Aoli.getHandler().post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    callback.get().onFailure();
+                                }
+                            });
                         }
                     }
 
                     @Override
                     public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
-                        final String result = response.body().string();
-                        ErrorMsg errorMsg = JSON.parseObject(result,ErrorMsg.class);
-                        if (errorMsg != null && errorMsg.getError_code() != null){
+                        if (response.code() == HttpURLConnection.HTTP_OK) {
+                            final String result = response.body().string();
+                            ErrorMsg errorMsg = JSON.parseObject(result, ErrorMsg.class);
+                            if (errorMsg != null && errorMsg.getError_code() != null) {
+                                Aoli.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        if (callback != null) {
+                                            callback.get().onError(errorMsg);
+                                        }
+                                    }
+                                });
+                            } else {
+                                StatusContents statusContents = JSON.parseObject(result, StatusContents.class);
+                                Aoli.getHandler().post(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        switch (type) {
+                                            case LOAD:
+                                                if (callback != null) {
+                                                    callback.get().onLoaded(statusContents.getStatuses());
+                                                }
+                                                break;
+                                            case REFRESH:
+                                                if (callback != null) {
+                                                    callback.get().onRefresh(statusContents.getStatuses());
+                                                }
+                                                break;
+                                            case LOADMORE:
+                                                if (callback != null) {
+                                                    callback.get().onLoadMore(statusContents.getStatuses());
+                                                }
+                                        }
+                                    }
+                                });
+                            }
+                        }else {
                             Aoli.getHandler().post(new Runnable() {
                                 @Override
                                 public void run() {
-                                    if (callback != null) {
-                                        callback.onError(errorMsg);
-                                    }
-                                }
-                            });
-                        }else{
-                            StatusContents statusContents = JSON.parseObject(result,StatusContents.class);
-                            Aoli.getHandler().post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    switch (type){
-                                        case LOAD:
-                                            if (callback != null) {
-                                                callback.onLoaded(statusContents.getStatuses());
-                                            }
-                                            break;
-                                        case REFRESH:
-                                            if (callback != null) {
-                                                callback.onRefresh(statusContents.getStatuses());
-                                            }
-                                            break;
-                                        case LOADMORE:
-                                            if (callback != null) {
-                                                callback.onLoadMore(statusContents.getStatuses());
-                                            }
-                                    }
+                                    callback.get().onFailure();
                                 }
                             });
                         }
                     }
                 });
+
     }
 
     @Override
     public void registerViewCallback(ITimeLineViewCallback callback) {
-        this.callback = callback;
+        this.callback = new WeakReference<>(callback);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package org.aoli.weibo.delegates.user;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -21,13 +20,12 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.appbar.AppBarLayout;
 
 import org.aoli.weibo.R;
-import org.aoli.weibo.delegates.BaseBackDelegate;
+import org.aoli.weibo.delegates.BaseDelegate;
 import org.aoli.weibo.delegates.adapter.WeiBoAdapter;
 import org.aoli.weibo.sinasdk.ErrorMsgUtil;
 import org.aoli.weibo.sinasdk.bean.ErrorMsg;
 import org.aoli.weibo.sinasdk.bean.StatusContent;
 import org.aoli.weibo.sinasdk.bean.WeiBoUser;
-import org.aoli.weibo.sinasdk.http.HomeTimeLinePresenter;
 import org.aoli.weibo.sinasdk.http.UserTimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLineViewCallback;
@@ -38,7 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallback {
+public class UserDelegate extends BaseDelegate implements ITimeLineViewCallback {
     @BindView(R.id.app_bar)
     AppBarLayout mAppBarLayout;
     @BindView(R.id.fra_head)
@@ -93,7 +91,6 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
         mAppBarLayout.addOnOffsetChangedListener(listener);
         initRecyclerView();
         initData();
-        getActivity().getWindow().setStatusBarColor(Color.TRANSPARENT);
     }
 
     private void initData(){
@@ -133,15 +130,12 @@ public class UserDelegate extends BaseBackDelegate implements ITimeLineViewCallb
                 mUserTimeLinePresenter.pull2Refresh();
             }
         });
-        mUserTimeLinePresenter = HomeTimeLinePresenter.getInstance();
-        mUserTimeLinePresenter.registerViewCallback(this);
     }
 
     @Override
     public void onDestroyView() {
         mAppBarLayout.removeOnOffsetChangedListener(listener);
         mUserTimeLinePresenter.unRegisterViewCallback(this);
-        getActivity().getWindow().setStatusBarColor(Color.WHITE);
         super.onDestroyView();
     }
 

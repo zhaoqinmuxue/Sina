@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -73,6 +72,7 @@ public class WeiBoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                     userDelegate.setArguments(bundle);
                     mContext.getSupportFragmentManager().beginTransaction()
                             .add(R.id.delegate_container, userDelegate)
+                            .addToBackStack("")
                             .commit();
                 }
             };

@@ -34,7 +34,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         //所以此时不用重复添加
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.delegate_container,setRootDelegate())
+                    .add(R.id.delegate_container,setRootDelegate())
                     .commit();
         }
     }
