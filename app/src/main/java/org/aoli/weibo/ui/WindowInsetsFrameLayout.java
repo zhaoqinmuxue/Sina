@@ -1,4 +1,4 @@
-package org.aoli.weibo.util;
+package org.aoli.weibo.ui;
 
 import android.content.Context;
 import android.util.AttributeSet;

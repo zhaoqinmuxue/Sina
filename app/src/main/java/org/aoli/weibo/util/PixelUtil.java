@@ -1,7 +1,7 @@
 package org.aoli.weibo.util;
 
 import android.content.res.Resources;
-import android.util.TypedValue;
+import android.util.DisplayMetrics;
 
 import org.aoli.weibo.application.Aoli;
 
@@ -12,8 +12,20 @@ public class PixelUtil {
     }
 
     public static int getStatusBarHeight() {
-        Resources resources = Aoli.getApplicationContext().getResources();
+        final Resources resources = Aoli.getApplicationContext().getResources();
         int resourceId = resources.getIdentifier("status_bar_height", "dimen","android");
         return resources.getDimensionPixelSize(resourceId);
+    }
+
+    public static int getScreenWidth(){
+        final Resources resources = Aoli.getApplicationContext().getResources();
+        final DisplayMetrics dm = resources.getDisplayMetrics();
+        return dm.widthPixels;
+    }
+
+    public static int getScreenHeight(){
+        final Resources resources = Aoli.getApplicationContext().getResources();
+        final DisplayMetrics dm = resources.getDisplayMetrics();
+        return dm.heightPixels;
     }
 }

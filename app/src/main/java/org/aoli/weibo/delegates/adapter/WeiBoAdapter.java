@@ -1,10 +1,12 @@
 package org.aoli.weibo.delegates.adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import org.aoli.weibo.delegates.user.UserDelegate;
 import org.aoli.weibo.sinasdk.bean.PicUrl;
 import org.aoli.weibo.sinasdk.bean.StatusContent;
 import org.aoli.weibo.sinasdk.bean.WeiBoUser;
+import org.aoli.weibo.ui.imagesdialog.BrowseImagesDialog;
 import org.aoli.weibo.ui.ninegridimageview.NineGridImageView;
 import org.aoli.weibo.ui.ninegridimageview.NineGridImageViewAdapter;
 import org.aoli.weibo.util.RichTextUtil;
@@ -135,7 +138,8 @@ public class WeiBoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
         @Override
         protected void onItemImageClick(Context context, int index, List<PicUrl> list) {
-            super.onItemImageClick(context, index, list);
+            Dialog dialog = new BrowseImagesDialog(context,list,index);
+            dialog.show();
         }
     };
 

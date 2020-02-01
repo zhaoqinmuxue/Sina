@@ -11,4 +11,9 @@
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
+    <style name="BlackDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/black</item>
+    </style>
+
 </resources>

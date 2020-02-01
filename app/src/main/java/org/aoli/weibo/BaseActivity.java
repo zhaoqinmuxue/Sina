@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.aoli.weibo.delegates.BaseDelegate;
-import org.aoli.weibo.util.WindowInsetsFrameLayout;
+import org.aoli.weibo.ui.WindowInsetsFrameLayout;
 
 
 public abstract class BaseActivity extends AppCompatActivity {
