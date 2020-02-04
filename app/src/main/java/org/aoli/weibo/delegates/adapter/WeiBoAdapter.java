@@ -123,6 +123,10 @@ public class WeiBoAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         notifyDataSetChanged();
     }
 
+    public List<StatusContent> getData(){
+        return contents;
+    }
+
     public void addData(List<StatusContent> contents){
         final int start = this.contents.size();
         final int count = contents.size();

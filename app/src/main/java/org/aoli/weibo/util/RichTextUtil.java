@@ -24,7 +24,7 @@ public class RichTextUtil {
                 indexes.add(i);
             }
         }
-        int color = Aoli.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark,null);
+        int color = ColorUtil.getAccentBackColor();
         for (int i = 2;i <= indexes.size();i+=2){
             String word = text.substring(indexes.get(i-2)+1,indexes.get(i-1));
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -58,7 +58,7 @@ public class RichTextUtil {
                 }
             }
         }
-        int color = Aoli.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark,null);
+        int color = ColorUtil.getAccentBackColor();
         for (int i = 2;i <= indexes.size();i+=2){
             String word = text.substring(indexes.get(i-2)+1,indexes.get(i-1));
             ClickableSpan clickableSpan = new ClickableSpan() {
@@ -83,7 +83,7 @@ public class RichTextUtil {
         if (all != -1) {
             String allUrl = text.substring(all + "全文：".length()).trim();
             String temp = text.substring(0, all);
-            int color = Aoli.getApplicationContext().getResources().getColor(R.color.colorPrimaryDark,null);
+            int color = ColorUtil.getAccentBackColor();
             ClickableSpan clickableSpan = new ClickableSpan() {
                 @Override
                 public void onClick(@NonNull View widget) {

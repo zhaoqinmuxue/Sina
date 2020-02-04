@@ -3,20 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/statusBack"
     android:id="@+id/layout">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="?attr/statusBack">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:statusBarScrim="@color/white">
+            app:statusBarScrim="?attr/statusBack">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                         android:layout_gravity="end"
                         android:layout_marginEnd="10dp"
                         android:background="@drawable/pill"
-                        android:textColor="@color/white"
+                        android:textColor="?attr/accentFore"
                         android:textOff="关注"
                         android:textOn="已关注"
                         />
@@ -58,7 +58,7 @@
                         android:layout_margin="4dp"
                         android:textSize="18sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
+                        android:textColor="?attr/mainFore"
                         android:text="甜言蜜语的情话" />
 
                     <TextView
@@ -67,7 +67,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:layout_marginBottom="6dp"
-                        android:textColor="@color/black_light"
+                        android:textColor="?attr/lightMainFore"
                         android:text="情话大全，浪漫情话，经典语录，人生感悟，爱情语录，情感语句，哄女孩子开心的话，泡妞必说的话，泡妞秘籍，情感话题，情感语录大全，心情随笔。"/>
 
                     <LinearLayout
@@ -78,27 +78,30 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="关注 "/>
+                            android:text="关注 "
+                            android:textColor="?attr/secondaryFore"/>
                         <TextView
                             android:id="@+id/tv_guanzhu"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/mainFore"
                             android:textStyle="bold"
                             android:text="2507"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:text=" | "/>
+                            android:textColor="?attr/secondaryFore"
+                            android:text=" | " />
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textColor="?attr/secondaryFore"
                             android:text="粉丝 "/>
                         <TextView
                             android:id="@+id/tv_fans"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:textColor="@color/black"
+                            android:textColor="?attr/mainFore"
                             android:textStyle="bold"
                             android:text="27.8万"/>
                     </LinearLayout>
@@ -118,14 +121,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/white"
+        android:background="?attr/statusBack"
         android:elevation="2dp">
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/tb_name"
             android:layout_width="match_parent"
             android:layout_height="56dp"
             app:contentInsetStart="60dp"
-            app:title="甜言蜜语的情话"/>
+            app:title="甜言蜜语的情话"
+            app:titleTextColor="?attr/statusFore"/>
     </FrameLayout>
 
     <FrameLayout

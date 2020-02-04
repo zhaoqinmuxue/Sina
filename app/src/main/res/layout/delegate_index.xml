@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:paddingStart="2dp"
         android:paddingEnd="2dp"
-        android:background="@color/white">
+        android:background="?attr/mainBack">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/index_rv"

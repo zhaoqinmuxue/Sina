@@ -35,6 +35,15 @@ public final class Aoli {
         getConfigurations().remove(ConfigType.TOKEN);
     }
 
+    public static void setTheme(int theme){
+        getApplicationContext().setTheme(theme);
+        getConfigurations().put(ConfigType.THEME,theme);
+    }
+
+    public static int getTheme(){
+        return getConfiguration(ConfigType.THEME);
+    }
+
     public static Context getApplicationContext(){
         return getConfiguration(ConfigType.APPLICATION_CONTEXT);
     }

@@ -23,7 +23,10 @@ import org.aoli.weibo.sinasdk.http.HomeTimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLineViewCallback;
 import org.aoli.weibo.ui.UILoader;
+import org.aoli.weibo.util.ColorUtil;
 import org.aoli.weibo.util.PixelUtil;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,7 +54,7 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
         mRecyclerView.setAdapter(mWeiBoAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mRecyclerView.addOnScrollListener(onScrollListener);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setColorSchemeColors(ColorUtil.getAccentBackColor());
         mSwipeRefreshLayout.setProgressViewOffset(true, PixelUtil.toPixel(-20),PixelUtil.toPixel(40));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -76,13 +79,38 @@ public class IndexDelegate extends BaseLazyDelegate implements ITimeLineViewCall
         }
     };
 
+    private boolean hasRestore = false;
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable("save",(ArrayList)mWeiBoAdapter.getData());
+        hasRestore = false;
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        if (savedInstanceState != null) {
+            List<StatusContent> contents = (ArrayList) savedInstanceState.getSerializable("save");
+            if (contents != null && contents.size() > 0) {
+                hasRestore = true;
+                mWeiBoAdapter.setData(contents);
+            }
+        }
+    }
+
     @Override
     protected void onLazyLoad() {
-        if (Aoli.isLoginIn()){
-            updateStatus(UILoader.UIStatus.LOADING);
-            mHomeTimeLinePresenter.getStatusContents();
+        if (!hasRestore) {
+            if (Aoli.isLoginIn()) {
+                updateStatus(UILoader.UIStatus.LOADING);
+                mHomeTimeLinePresenter.getStatusContents();
+            } else {
+                updateStatus(UILoader.UIStatus.ERROR);
+            }
         }else {
-            updateStatus(UILoader.UIStatus.ERROR);
+            updateStatus(UILoader.UIStatus.SUCCESS);
         }
     }
 

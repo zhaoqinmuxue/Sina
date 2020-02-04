@@ -9,4 +9,14 @@
             <enum name="fill" value="1"/>
         </attr>
     </declare-styleable>
+
+    <attr name="statusBack" format="color"/>
+    <attr name="statusFore" format="color"/>
+    <attr name="mainBack" format="color"/>
+    <attr name="secondaryBack" format="color"/>
+    <attr name="mainFore" format="color"/>
+    <attr name="lightMainFore" format="color"/>
+    <attr name="secondaryFore" format="color"/>
+    <attr name="accentFore" format="color"/>
+    <attr name="accentBack" format="color"/>
 </resources>

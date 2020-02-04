@@ -8,6 +8,7 @@ import android.view.Window;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import org.aoli.weibo.application.Aoli;
 import org.aoli.weibo.delegates.BaseDelegate;
 import org.aoli.weibo.ui.WindowInsetsFrameLayout;
 
@@ -17,6 +18,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        setTheme(Aoli.getTheme());
         super.onCreate(savedInstanceState);
         initContainer(savedInstanceState);
         Window window = getWindow();

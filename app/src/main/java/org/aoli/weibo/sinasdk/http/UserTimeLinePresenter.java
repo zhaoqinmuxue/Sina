@@ -1,7 +1,5 @@
 package org.aoli.weibo.sinasdk.http;
 
-import android.util.Log;
-import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 

@@ -30,6 +30,7 @@ import org.aoli.weibo.sinasdk.http.UserTimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLinePresenter;
 import org.aoli.weibo.sinasdk.interfaces.ITimeLineViewCallback;
 import org.aoli.weibo.ui.UILoader;
+import org.aoli.weibo.util.ColorUtil;
 import org.aoli.weibo.util.PixelUtil;
 
 import java.util.List;
@@ -122,7 +123,7 @@ public class UserDelegate extends BaseDelegate implements ITimeLineViewCallback 
         mRecyclerView.setAdapter(mWeiBoAdapter);
         mRecyclerView.addItemDecoration(new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL));
         mSwipeRefreshLayout = mUILoader.findViewById(R.id.sr);
-        mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        mSwipeRefreshLayout.setColorSchemeColors(ColorUtil.getAccentBackColor());
         mSwipeRefreshLayout.setProgressViewOffset(true, PixelUtil.toPixel(-20),PixelUtil.toPixel(40));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

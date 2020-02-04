@@ -4,5 +4,6 @@ public enum ConfigType {
     APPLICATION_CONTEXT,
     TOKEN,
     HANDLER,
-    BASE_URL
+    BASE_URL,
+    THEME
 }

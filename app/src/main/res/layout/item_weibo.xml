@@ -28,7 +28,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="top"
-                android:textColor="@color/black"
+                android:textColor="?attr/mainFore"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:maxLines="1"/>
@@ -40,7 +40,7 @@
                 android:layout_weight="1"
                 android:gravity="top"
                 android:textSize="12sp"
-                android:textColor="@color/gray"
+                android:textColor="?attr/secondaryFore"
                 android:maxLines="1"/>
         </LinearLayout>
 
@@ -51,7 +51,7 @@
             android:layout_marginTop="2dp"
             android:textSize="16sp"
             android:lineSpacingMultiplier="1.1"
-            android:textColor="@color/black"
+            android:textColor="?attr/mainFore"
             android:autoLink="web"/>
 
         <org.aoli.weibo.ui.ninegridimageview.NineGridImageView
@@ -68,7 +68,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/gray_very_light"
+            android:background="?attr/secondaryBack"
             android:padding="6dp">
 
             <TextView
@@ -77,14 +77,14 @@
                 android:layout_height="wrap_content"
                 android:textSize="15sp"
                 android:lineSpacingMultiplier="1.1"
-                android:textColor="@color/black"/>
+                android:textColor="?attr/mainFore"/>
 
             <TextView
                 android:id="@+id/repost_msg"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="12sp"
-                android:textColor="@color/gray_deep"
+                android:textColor="?attr/lightMainFore"
                 android:layout_marginTop="4dp"
                 android:layout_marginBottom="4dp"/>
 
@@ -121,7 +121,7 @@
                     android:gravity="center_vertical"
                     android:textSize="12sp"
                     android:layout_marginStart="4dp"
-                    android:textColor="@color/gray"/>
+                    android:textColor="?attr/secondaryFore"/>
             </LinearLayout>
 
             <LinearLayout
@@ -141,7 +141,7 @@
                     android:gravity="center_vertical"
                     android:textSize="12sp"
                     android:layout_marginStart="4dp"
-                    android:textColor="@color/gray"/>
+                    android:textColor="?attr/secondaryFore"/>
             </LinearLayout>
 
             <LinearLayout
@@ -161,7 +161,7 @@
                     android:gravity="center_vertical"
                     android:textSize="12sp"
                     android:layout_marginStart="4dp"
-                    android:textColor="@color/gray"/>
+                    android:textColor="?attr/secondaryFore"/>
             </LinearLayout>
 
             <LinearLayout

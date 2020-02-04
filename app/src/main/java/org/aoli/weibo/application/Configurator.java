@@ -39,4 +39,9 @@ public final class Configurator {
         CONFIGS.put(ConfigType.BASE_URL,baseUrl);
         return this;
     }
+
+    public Configurator withTheme(int theme){
+        CONFIGS.put(ConfigType.THEME,theme);
+        return this;
+    }
 }

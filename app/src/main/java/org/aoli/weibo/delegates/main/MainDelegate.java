@@ -24,6 +24,7 @@ import org.aoli.weibo.delegates.BaseDelegate;
 import org.aoli.weibo.delegates.main.hot.HotDelegate;
 import org.aoli.weibo.delegates.main.index.IndexDelegate;
 import org.aoli.weibo.delegates.main.message.MessageDelegate;
+import org.aoli.weibo.delegates.nav.ThemeDelegate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainDelegate extends BaseDelegate {
+public class MainDelegate extends BaseDelegate implements NavigationView.OnNavigationItemSelectedListener {
     @BindView(R.id.main_tb)
     Toolbar mToolBar;
     @BindView(R.id.main_drawer)
@@ -114,6 +115,7 @@ public class MainDelegate extends BaseDelegate {
                 return true;
             }
         });
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     class MainFragmentPagerAdapter extends FragmentPagerAdapter{
@@ -130,5 +132,18 @@ public class MainDelegate extends BaseDelegate {
         public int getCount() {
             return DELEGATES.size();
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nv_theme:
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .add(R.id.delegate_container, new ThemeDelegate())
+                        .addToBackStack("")
+                        .commit();
+                break;
+        }
+        return true;
     }
 }

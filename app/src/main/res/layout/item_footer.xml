@@ -6,4 +6,4 @@
     android:layout_centerInParent="true"
     android:layout_marginTop="2dp"
     android:layout_marginBottom="4dp"
-    android:indeterminateTint="@color/colorPrimary"/>
+    android:indeterminateTint="?attr/accentBack"/>

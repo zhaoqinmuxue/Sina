@@ -10,6 +10,44 @@
         <item name="android:statusBarColor">@color/white</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
+    
+    <style name="WhiteTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#009688</item>
+        <item name="colorPrimaryDark">#009688</item>
+        <item name="colorAccent">#009688</item>
+
+        <item name="statusBack">#FFFFFF</item>
+        <item name="statusFore">#525252</item>
+        <item name="mainBack">#FDFDFD</item>
+        <item name="secondaryBack">#EEEEEE</item>
+        <item name="mainFore">#080808</item>
+        <item name="lightMainFore">#404040</item>
+        <item name="secondaryFore">#9A9A9A</item>
+        <item name="accentFore">#FFFFFF</item>
+        <item name="accentBack">#009688</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="BlackTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">#009688</item>
+        <item name="colorPrimaryDark">#009688</item>
+        <item name="colorAccent">#009688</item>
+
+        <item name="statusBack">#212121</item>
+        <item name="statusFore">#FAFAFA</item>
+        <item name="mainBack">#303030</item>
+        <item name="secondaryBack">#282828</item>
+        <item name="mainFore">#FFFFFF</item>
+        <item name="lightMainFore">#D3D3D3</item>
+        <item name="secondaryFore">#888888</item>
+        <item name="accentFore">#009688</item>
+        <item name="accentBack">#FAFAFA</item>
+
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
 
     <style name="BlackDialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
