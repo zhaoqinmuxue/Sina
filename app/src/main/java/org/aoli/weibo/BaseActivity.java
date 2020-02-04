@@ -22,7 +22,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         initContainer(savedInstanceState);
         Window window = getWindow();
-        window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        if(Aoli.getTheme() == R.style.WhiteTheme) {
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }else if (Aoli.getTheme() == R.style.BlackTheme){
+            window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        }
         window.setStatusBarColor(Color.TRANSPARENT);
     }
 
